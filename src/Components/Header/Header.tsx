@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useViewportScroll } from "framer-motion";
+import { useEffect } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import useSearch from "../../Hooks/Header/Search/useSearch";
@@ -12,6 +13,7 @@ import {
   Logo,
   logoVariants,
   Nav,
+  navVariants,
   Search,
 } from "./Header.style";
 
@@ -19,11 +21,22 @@ const Header: React.FC = () => {
   const [searchOpen, setSearchOpen] = useRecoilState(searchClick);
   const homeMatch = useRouteMatch("/");
   const tvMatch = useRouteMatch("/tv");
+  const { scrollY } = useViewportScroll();
 
-  const { toggleSearch } = useSearch();
+  const { toggleSearch, inputAnimation, navAnimation } = useSearch();
+
+  useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() > 80) {
+        navAnimation.start("scroll");
+      } else {
+        navAnimation.start("top");
+      }
+    });
+  }, [scrollY, navAnimation]);
 
   return (
-    <Nav>
+    <Nav variants={navVariants} initial={"top"} animate={navAnimation}>
       <Col>
         <Logo
           variants={logoVariants}
@@ -55,7 +68,7 @@ const Header: React.FC = () => {
           <motion.svg
             onClick={toggleSearch}
             transition={{ type: "linear" }}
-            animate={{ x: searchOpen ? -300 : 0 }}
+            animate={{ x: searchOpen ? -235 : 0 }}
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +81,8 @@ const Header: React.FC = () => {
           </motion.svg>
           <Input
             transition={{ type: "linear" }}
-            animate={{ scaleX: searchOpen ? 1 : 0 }}
+            initial={{ scaleX: 0 }}
+            animate={inputAnimation}
             placeholder="제목, 사람, 장르"
           />
         </Search>

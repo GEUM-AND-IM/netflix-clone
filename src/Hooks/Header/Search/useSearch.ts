@@ -1,12 +1,26 @@
+import { useAnimation } from "framer-motion";
 import { useRecoilState } from "recoil";
 import { searchClick } from "../../../Store/searchClick";
 
 const useSearch = () => {
   const [searchOpen, setSearchOpen] = useRecoilState(searchClick);
+  const inputAnimation = useAnimation();
+  const navAnimation = useAnimation();
 
-  const toggleSearch = () => setSearchOpen((prev) => !prev);
+  const toggleSearch = () => {
+    if (searchOpen) {
+      inputAnimation.start({
+        scaleX: 0,
+      });
+    } else {
+      inputAnimation.start({
+        scaleX: 1,
+      });
+    }
+    setSearchOpen((prev) => !prev);
+  };
 
-  return { toggleSearch };
+  return { toggleSearch, inputAnimation, navAnimation };
 };
 
 export default useSearch;

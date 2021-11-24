@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-export const Nav = styled.div`
+export const Nav = styled(motion.div)`
   width: 100%;
   height: 68px;
   display: flex;
@@ -16,6 +16,11 @@ export const Nav = styled.div`
   box-sizing: border-box;
 `;
 
+export const navVariants = {
+  top: { backgroundColor: "rgba(0,0,0,0)" },
+  scroll: { backgroundColor: "rgba(0,0,0,1)" },
+};
+
 export const Col = styled.div`
   display: flex;
   align-items: center;
@@ -28,7 +33,6 @@ export const Logo = styled(motion.svg)`
   fill: ${(props) => props.theme.red};
   path {
     stroke-width: 6px;
-    stroke: white;
   }
 `;
 
@@ -37,7 +41,6 @@ export const logoVariants = {
     fillOpacity: 1,
   },
   active: {
-    fillOpacity: [0, 1, 0],
     transition: {
       repeat: Infinity,
     },
@@ -49,7 +52,6 @@ export const Search = styled.span`
   display: flex;
   align-items: center;
   position: relative;
-  z-index: 3;
   svg {
     height: 25px;
     cursor: pointer;
@@ -61,13 +63,16 @@ export const Input = styled(motion.input)`
   height: 36px;
   transform-origin: right center;
   position: absolute;
-  left: -270px;
+  right: 0px;
   box-sizing: border-box;
   font-size: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  background-color: black;
-  z-index: 2;
+  border: 1px solid ${(props) => props.theme.white.lighter};
+  background-color: transparent;
+  z-index: -1;
   outline: none;
+  color: white;
+  padding: 5px 10px;
+  padding-left: 40px;
 `;
 
 export const Items = styled.ul`
