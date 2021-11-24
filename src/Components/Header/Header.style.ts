@@ -3,16 +3,17 @@ import { motion } from "framer-motion";
 
 export const Nav = styled.div`
   width: 100%;
+  height: 68px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  top: 0px;
   background-color: black;
-  height: 68px;
-  font-size: 14px;
   padding: 0px 60px;
   color: white;
+  top: 0px;
+  font-size: 14px;
+  box-sizing: border-box;
 `;
 
 export const Col = styled.div`
@@ -43,9 +44,30 @@ export const logoVariants = {
   },
 };
 
-export const Search = styled.svg`
+export const Search = styled.span`
   color: white;
-  height: 25px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+  svg {
+    height: 25px;
+    cursor: pointer;
+  }
+`;
+
+export const Input = styled(motion.input)`
+  width: 268px;
+  height: 36px;
+  transform-origin: right center;
+  position: absolute;
+  left: -270px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background-color: black;
+  z-index: 2;
+  outline: none;
 `;
 
 export const Items = styled.ul`
@@ -73,7 +95,7 @@ export const Item = styled.li<{ isActive: boolean }>`
   }
 `;
 
-export const Circle = styled.span`
+export const Circle = styled(motion.span)`
   position: absolute;
   width: 5px;
   height: 5px;

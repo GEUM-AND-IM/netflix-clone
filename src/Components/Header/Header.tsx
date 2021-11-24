@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import useSearch from "../../Hooks/Header/Search/useSearch";
+import { searchClick } from "../../Store/searchClick";
 import {
   Circle,
   Col,
+  Input,
   Item,
   Items,
   Logo,
@@ -12,10 +16,11 @@ import {
 } from "./Header.style";
 
 const Header: React.FC = () => {
+  const [searchOpen, setSearchOpen] = useRecoilState(searchClick);
   const homeMatch = useRouteMatch("/");
   const tvMatch = useRouteMatch("/tv");
 
-  console.log(homeMatch?.isExact, tvMatch?.isExact);
+  const { toggleSearch } = useSearch();
 
   return (
     <Nav>
@@ -33,19 +38,24 @@ const Header: React.FC = () => {
         </Logo>
         <Items>
           <Item isActive={homeMatch?.isExact !== false}>
-            <Link to="/">홈{homeMatch?.isExact && <Circle />}</Link>
+            <Link to="/">
+              홈{homeMatch?.isExact && <Circle layoutId="circle" />}
+            </Link>
           </Item>
           <Item isActive={tvMatch !== null}>
             <Link to="/tv">
               티비 프로그램
-              {tvMatch && <Circle />}
+              {tvMatch && <Circle layoutId="circle" />}
             </Link>
           </Item>
         </Items>
       </Col>
       <Col>
         <Search>
-          <svg
+          <motion.svg
+            onClick={toggleSearch}
+            transition={{ type: "linear" }}
+            animate={{ x: searchOpen ? -300 : 0 }}
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +65,12 @@ const Header: React.FC = () => {
               d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
               clipRule="evenodd"
             ></path>
-          </svg>
+          </motion.svg>
+          <Input
+            transition={{ type: "linear" }}
+            animate={{ scaleX: searchOpen ? 1 : 0 }}
+            placeholder="제목, 사람, 장르"
+          />
         </Search>
       </Col>
     </Nav>
