@@ -37,8 +37,12 @@ footer, header, hgroup, main, menu, nav, section {
     display: none;
 }
 body {
+	font-weight: 300;
 	line-height: 1;
-  box-sizing: border-box;
+  	box-sizing: border-box;
+	color : ${(props) => props.theme.white.darker};
+	background-color: black;
+	
 }
 menu, ol, ul {
 	list-style: none;
