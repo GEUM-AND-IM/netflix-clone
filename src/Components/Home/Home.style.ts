@@ -39,10 +39,29 @@ export const Slider = styled.div`
   top: -200px;
 `;
 
+export const SliderBtn = styled.button`
+  width: 60px;
+  height: 179px;
+  position: absolute;
+  right: 0px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+  background-color: rgba(50, 50, 50, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgba(20, 20, 20, 0.7);
+  }
+`;
+
 export const Row = styled(motion.div)`
   width: 100%;
-  /* display: grid;
-  grid-template-columns: repeat(6, 1fr); */
   display: flex;
   justify-content: center;
   column-gap: 10px;
@@ -72,6 +91,7 @@ export const Box = styled(motion.div)`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  cursor: pointer;
 
   &:first-child {
     transform-origin: center left;
@@ -122,16 +142,18 @@ export const Info = styled(motion.div)`
   box-sizing: border-box;
   display: none;
   opacity: 0;
+  flex-direction: column;
 
   h4 {
-    text-align: center;
-    font-size: 18px;
+    text-align: start;
+    font-size: 20px;
+    margin-bottom: 20px;
   }
 `;
 
 export const infoVariants = {
   hover: {
-    display: "block",
+    display: "flex",
     opacity: 1,
     transition: {
       delay: 0.5,
