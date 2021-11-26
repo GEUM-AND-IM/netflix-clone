@@ -22,7 +22,12 @@ import {
 import useSlider from "../../Hooks/Home/Slider/useSlider";
 import useMovie from "../../Hooks/Home/Movie/useMovie";
 import { useRouteMatch } from "react-router";
-import { BigMovie, OverLay } from "./BigMovieModal/BigMovieModal.style";
+import {
+  BigCover,
+  BigMovie,
+  BigTitle,
+  OverLay,
+} from "./BigMovieModal/BigMovieModal.style";
 
 const Home: React.FC = () => {
   const { data, isLoading } = useQuery<IGetMoviesResult>(
@@ -44,6 +49,10 @@ const Home: React.FC = () => {
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
+
+  const clickedMovie =
+    bigMovieMatch?.params.movieId &&
+    data?.results.find((movie) => movie.id === +bigMovieMatch.params.movieId);
 
   return (
     <Wrapper>
@@ -111,7 +120,19 @@ const Home: React.FC = () => {
                 <BigMovie
                   layoutId={bigMovieMatch.params.movieId + ""}
                   style={{ top: scrollY.get() + 100 }}
-                />
+                >
+                  {clickedMovie && (
+                    <>
+                      <BigCover
+                        bgPhoto={makeImgPath(
+                          clickedMovie.backdrop_path,
+                          "w500"
+                        )}
+                      />
+                      <BigTitle>{clickedMovie.title}</BigTitle>
+                    </>
+                  )}
+                </BigMovie>
               </>
             ) : null}
           </AnimatePresence>
