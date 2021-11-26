@@ -58,7 +58,34 @@ export const rowVariants = {
   },
 };
 
-export const Box = styled(motion.div)`
+export const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-color: white;
   height: 200px;
+  color: ${(props) => props.theme.red};
+  background-image: url(${(props) => props.bgPhoto});
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+
+  &:first-child {
+    transform-origin: center left;
+  }
+  &:last-child {
+    transform-origin: center right;
+  }
 `;
+
+export const BoxVariants = {
+  normal: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.3,
+    y: -50,
+    transition: {
+      delay: 0.5,
+      duration: 0.3,
+      type: "tween",
+    },
+  },
+};

@@ -1,10 +1,11 @@
 import { useQuery } from "react-query";
 import { getMovies, IGetMoviesResult } from "../../API/getMovies";
 import { makeImgPath } from "../../util/makeImgPath";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import {
   Banner,
   Box,
+  BoxVariants,
   Loader,
   Overview,
   Row,
@@ -13,7 +14,7 @@ import {
   Title,
   Wrapper,
 } from "./Home.style";
-import { useState } from "react";
+import useSlider from "../../Hooks/Home/Slider/useSlider";
 
 const Home: React.FC = () => {
   const { data, isLoading } = useQuery<IGetMoviesResult>(
@@ -21,8 +22,19 @@ const Home: React.FC = () => {
     getMovies
   );
 
-  const [index, setIndex] = useState<number>(0);
-  const incraseIndex = () => setIndex((prev) => prev + 1);
+  const { index, leaving, offset, setLeaving, setIndex } = useSlider();
+
+  const incraseIndex = () => {
+    if (data) {
+      if (leaving) return;
+      toggleLeaving();
+      const totalMovies = data.results.length - 1;
+      const maxIndex = Math.floor(totalMovies / offset) - 1;
+      setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }
+  };
+  const toggleLeaving = () => setLeaving((prev) => !prev);
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -37,7 +49,7 @@ const Home: React.FC = () => {
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <Slider>
-            <AnimatePresence>
+            <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
                 initial="hidden"
@@ -46,9 +58,19 @@ const Home: React.FC = () => {
                 key={index}
                 transition={{ type: "tween", duration: 1 }}
               >
-                {[1, 2, 3, 4, 5, 6].map((item, index) => (
-                  <Box key={index}>{item}</Box>
-                ))}
+                {data?.results
+                  .slice(1)
+                  .slice(offset * index, offset * index + offset)
+                  .map((movie, idx) => (
+                    <Box
+                      key={movie.id}
+                      bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
+                      whileHover="hover"
+                      initial="normal"
+                      variants={BoxVariants}
+                      transition={{ type: "tween" }}
+                    />
+                  ))}
               </Row>
             </AnimatePresence>
           </Slider>
