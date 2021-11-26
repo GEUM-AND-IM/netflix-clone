@@ -22,6 +22,7 @@ import {
 import useSlider from "../../Hooks/Home/Slider/useSlider";
 import useMovie from "../../Hooks/Home/Movie/useMovie";
 import { useRouteMatch } from "react-router";
+import { BigMovie, OverLay } from "./BigMovieModal/BigMovieModal.style";
 
 const Home: React.FC = () => {
   const { data, isLoading } = useQuery<IGetMoviesResult>(
@@ -31,7 +32,7 @@ const Home: React.FC = () => {
   const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
 
   const { index, leaving, offset, setLeaving, setIndex } = useSlider();
-  const { onBoxClicked } = useMovie();
+  const { onBoxClicked, onOverlayClick, scrollY } = useMovie();
 
   const incraseIndex = () => {
     if (data) {
@@ -101,7 +102,17 @@ const Home: React.FC = () => {
           </Slider>
           <AnimatePresence>
             {bigMovieMatch ? (
-              <motion.div layoutId={bigMovieMatch.params.movieId}></motion.div>
+              <>
+                <OverLay
+                  onClick={onOverlayClick}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <BigMovie
+                  layoutId={bigMovieMatch.params.movieId + ""}
+                  style={{ top: scrollY.get() + 100 }}
+                />
+              </>
             ) : null}
           </AnimatePresence>
         </>

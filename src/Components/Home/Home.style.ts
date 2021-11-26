@@ -106,7 +106,7 @@ export const boxVariants = {
     scale: 1,
   },
   hover: {
-    zIndex: 99,
+    zIndex: 1,
     width: 360,
     height: 358,
     y: -100,
