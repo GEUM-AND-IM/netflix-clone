@@ -5,7 +5,11 @@ import { AnimatePresence } from "framer-motion";
 import {
   Banner,
   Box,
-  BoxVariants,
+  BoxImg,
+  boxImgVariants,
+  boxVariants,
+  Info,
+  infoVariants,
   Loader,
   Overview,
   Row,
@@ -64,12 +68,19 @@ const Home: React.FC = () => {
                   .map((movie, idx) => (
                     <Box
                       key={movie.id}
-                      bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
                       whileHover="hover"
                       initial="normal"
-                      variants={BoxVariants}
+                      variants={boxVariants}
                       transition={{ type: "tween" }}
-                    />
+                    >
+                      <BoxImg
+                        variants={boxImgVariants}
+                        src={makeImgPath(movie.backdrop_path, "w500")}
+                      />
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
                   ))}
               </Row>
             </AnimatePresence>
