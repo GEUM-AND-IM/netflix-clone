@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { getMovies, IGetMoviesResult } from "../../API/getMovies";
 import { makeImgPath } from "../../util/makeImgPath";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import {
   Banner,
   Box,
@@ -22,12 +22,7 @@ import {
 import useSlider from "../../Hooks/Home/Slider/useSlider";
 import useMovie from "../../Hooks/Home/Movie/useMovie";
 import { useRouteMatch } from "react-router";
-import {
-  BigCover,
-  BigMovie,
-  BigTitle,
-  OverLay,
-} from "./BigMovieModal/BigMovieModal.style";
+import BigMovieModal from "./BigMovieModal";
 
 const Home: React.FC = () => {
   const { data, isLoading } = useQuery<IGetMoviesResult>(
@@ -37,7 +32,7 @@ const Home: React.FC = () => {
   const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
 
   const { index, leaving, offset, setLeaving, setIndex } = useSlider();
-  const { onBoxClicked, onOverlayClick, scrollY } = useMovie();
+  const { onBoxClicked } = useMovie();
 
   const incraseIndex = () => {
     if (data) {
@@ -49,10 +44,6 @@ const Home: React.FC = () => {
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
-
-  const clickedMovie =
-    bigMovieMatch?.params.movieId &&
-    data?.results.find((movie) => movie.id === +bigMovieMatch.params.movieId);
 
   return (
     <Wrapper>
@@ -111,29 +102,7 @@ const Home: React.FC = () => {
           </Slider>
           <AnimatePresence>
             {bigMovieMatch ? (
-              <>
-                <OverLay
-                  onClick={onOverlayClick}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                />
-                <BigMovie
-                  layoutId={bigMovieMatch.params.movieId + ""}
-                  style={{ top: scrollY.get() + 100 }}
-                >
-                  {clickedMovie && (
-                    <>
-                      <BigCover
-                        bgPhoto={makeImgPath(
-                          clickedMovie.backdrop_path,
-                          "w500"
-                        )}
-                      />
-                      <BigTitle>{clickedMovie.title}</BigTitle>
-                    </>
-                  )}
-                </BigMovie>
-              </>
+              <BigMovieModal movieId={bigMovieMatch.params.movieId + ""} />
             ) : null}
           </AnimatePresence>
         </>

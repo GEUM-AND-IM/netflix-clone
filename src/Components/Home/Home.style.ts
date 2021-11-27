@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { isBlock } from "typescript";
 
 export const Wrapper = styled.div`
   background-color: black;
@@ -30,7 +29,7 @@ export const Title = styled.h1`
 `;
 
 export const Overview = styled.p`
-  font-size: 1.4vw;
+  font-size: 20px;
   width: 50%;
 `;
 

@@ -19,7 +19,7 @@ export interface IGetMoviesResult {
 }
 
 export const getMovies = () => {
-  return fetch(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`).then(
-    (res) => res.json()
-  );
+  return fetch(
+    `${BASE_PATH}/movie/now_playing?api_key=${API_KEY}&language=ko`
+  ).then((res) => res.json());
 };
