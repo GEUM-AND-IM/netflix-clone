@@ -1,6 +1,7 @@
 import { motion, useViewportScroll } from "framer-motion";
 import { useEffect } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useRouteMatch, useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import useSearch from "../../Hooks/Header/Search/useSearch";
 import { searchClick } from "../../Store/searchClick";
@@ -17,13 +18,19 @@ import {
   Search,
 } from "./Header.style";
 
+interface IForm {
+  keyword: string;
+}
+
 const Header: React.FC = () => {
   const [searchOpen, setSearchOpen] = useRecoilState(searchClick);
   const homeMatch = useRouteMatch("/");
   const tvMatch = useRouteMatch("/tv");
+  const history = useHistory();
   const { scrollY } = useViewportScroll();
 
   const { toggleSearch, inputAnimation, navAnimation } = useSearch();
+  const { register, handleSubmit } = useForm<IForm>();
 
   useEffect(() => {
     scrollY.onChange(() => {
@@ -34,6 +41,10 @@ const Header: React.FC = () => {
       }
     });
   }, [scrollY, navAnimation]);
+
+  const onValid = (data: IForm) => {
+    history.push(`/search?keyword=${data.keyword}`);
+  };
 
   return (
     <Nav variants={navVariants} initial={"top"} animate={navAnimation}>
@@ -64,7 +75,7 @@ const Header: React.FC = () => {
         </Items>
       </Col>
       <Col>
-        <Search>
+        <Search onSubmit={handleSubmit(onValid)}>
           <motion.svg
             onClick={toggleSearch}
             transition={{ type: "linear" }}
@@ -80,6 +91,7 @@ const Header: React.FC = () => {
             ></path>
           </motion.svg>
           <Input
+            {...register("keyword", { required: true, minLength: 2 })}
             transition={{ type: "linear" }}
             initial={{ scaleX: 0 }}
             animate={inputAnimation}
