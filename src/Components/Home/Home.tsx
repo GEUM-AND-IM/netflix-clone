@@ -11,6 +11,7 @@ import {
   Info,
   infoVariants,
   Loader,
+  MovieWrap,
   Overview,
   Row,
   rowVariants,
@@ -23,22 +24,25 @@ import useSlider from "../../Hooks/Home/Slider/useSlider";
 import useMovie from "../../Hooks/Home/Movie/useMovie";
 import { useRouteMatch } from "react-router";
 import BigMovieModal from "./BigMovieModal";
+import useGetMovies from "../../Hooks/Home/Movie/useGetMovies";
+import { useRecoilState } from "recoil";
+import { movieData } from "../../Store/movieData";
 
 const Home: React.FC = () => {
-  const { data, isLoading } = useQuery<IGetMoviesResult>(
-    ["movies", "nowPlaying"],
-    getMovies
-  );
+  const [movies, setMovies] = useRecoilState(movieData);
+  console.log(movies);
+
   const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
 
   const { index, leaving, offset, setLeaving, setIndex } = useSlider();
   const { onBoxClicked } = useMovie();
+  const { isLoading } = useGetMovies();
 
   const incraseIndex = () => {
-    if (data) {
+    if (movies) {
       if (leaving) return;
       toggleLeaving();
-      const totalMovies = data.results.length - 1;
+      const totalMovies = movies?.length / 5 - 1;
       const maxIndex = Math.floor(totalMovies / offset) - 1;
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
@@ -51,9 +55,9 @@ const Home: React.FC = () => {
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner bgPhoto={makeImgPath(data?.results[0].backdrop_path || "")}>
-            <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
+          <Banner bgPhoto={makeImgPath(movies[0]?.backdrop_path || "")}>
+            <Title>{movies[0]?.title}</Title>
+            <Overview>{movies[0]?.overview}</Overview>
           </Banner>
           <Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
@@ -65,8 +69,8 @@ const Home: React.FC = () => {
                 key={index}
                 transition={{ type: "tween", duration: 1 }}
               >
-                {data?.results
-                  .slice(1)
+                {movies
+                  ?.slice(1, 19)
                   .slice(offset * index, offset * index + offset)
                   .map((movie) => (
                     <Box
@@ -105,6 +109,7 @@ const Home: React.FC = () => {
               <BigMovieModal movieId={bigMovieMatch.params.movieId + ""} />
             ) : null}
           </AnimatePresence>
+          <MovieWrap></MovieWrap>
         </>
       )}
     </Wrapper>

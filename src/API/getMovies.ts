@@ -1,6 +1,6 @@
 import { API_KEY, BASE_PATH } from "../config/config.json";
 
-interface IMovie {
+export interface IMovie {
   id: number;
   backdrop_path: string;
   poster_path: string;
@@ -18,8 +18,10 @@ export interface IGetMoviesResult {
   total_results: number;
 }
 
-export const getMovies = () => {
+export const getMovies = (page: number) => {
   return fetch(
-    `${BASE_PATH}/movie/now_playing?api_key=${API_KEY}&language=ko`
+    `${BASE_PATH}/movie/now_playing?api_key=${API_KEY}&language=ko&page=${
+      page ? page : 1
+    }`
   ).then((res) => res.json());
 };

@@ -17,7 +17,7 @@ export const Banner = styled.div<{ bgPhoto: string }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 60px;
+  padding: 0px 60px;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url(${(props) => props.bgPhoto});
   background-size: cover;
@@ -35,7 +35,7 @@ export const Overview = styled.p`
 
 export const Slider = styled.div`
   position: relative;
-  top: -200px;
+  top: -100px;
 `;
 
 export const SliderBtn = styled.button`
@@ -159,3 +159,11 @@ export const infoVariants = {
     },
   },
 };
+
+export const MovieWrap = styled.div`
+  width: 100%;
+  height: 300px;
+  background-color: ${(props) => props.theme.black.veryDark};
+  padding: 60px;
+  box-sizing: border-box;
+`;

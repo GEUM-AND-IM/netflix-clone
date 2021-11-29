@@ -11,7 +11,7 @@ export const OverLay = styled(motion.div)`
 `;
 export const BigMovie = styled(motion.div)`
   position: absolute;
-  width: 45vw;
+  width: 924px;
   height: 80vh;
   left: 0;
   right: 0;
