@@ -8,6 +8,7 @@ export const OverLay = styled(motion.div)`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
+  z-index: 3;
 `;
 export const BigMovie = styled(motion.div)`
   position: absolute;
@@ -17,7 +18,7 @@ export const BigMovie = styled(motion.div)`
   right: 0;
   margin: 0 auto;
   background-color: ${(props) => props.theme.black.lighter};
-  z-index: 2;
+  z-index: 4;
   border-radius: 5px;
   overflow: hidden;
   display: flex;

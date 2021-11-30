@@ -1,5 +1,3 @@
-import { useQuery } from "react-query";
-import { getMovies, IGetMoviesResult } from "../../API/getMovies";
 import { makeImgPath } from "../../util/makeImgPath";
 import { AnimatePresence } from "framer-motion";
 import {
@@ -11,6 +9,8 @@ import {
   Info,
   infoVariants,
   Loader,
+  Movie,
+  MovieImg,
   MovieWrap,
   Overview,
   Row,
@@ -30,7 +30,6 @@ import { movieData } from "../../Store/movieData";
 
 const Home: React.FC = () => {
   const [movies, setMovies] = useRecoilState(movieData);
-  console.log(movies);
 
   const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
 
@@ -109,7 +108,29 @@ const Home: React.FC = () => {
               <BigMovieModal movieId={bigMovieMatch.params.movieId + ""} />
             ) : null}
           </AnimatePresence>
-          <MovieWrap></MovieWrap>
+          <MovieWrap>
+            {movies?.slice(19, movies.length).map((movie) => {
+              return (
+                <Movie
+                  initial="normal"
+                  whileHover="hover"
+                  variants={boxVariants}
+                  layoutId={movie.id + ""}
+                  onClick={() => onBoxClicked(movie.id)}
+                >
+                  <MovieImg
+                    variants={boxImgVariants}
+                    src={makeImgPath(movie.backdrop_path, "w500")}
+                  />
+                  <Info variants={infoVariants}>
+                    <h4>{movie.title}</h4>
+                    <span>평점 : ⭐{movie.vote_average}</span>
+                    <span>평점 횟수 : {movie.vote_count}회</span>
+                  </Info>
+                </Movie>
+              );
+            })}
+          </MovieWrap>
         </>
       )}
     </Wrapper>

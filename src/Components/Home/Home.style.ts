@@ -36,6 +36,7 @@ export const Overview = styled.p`
 export const Slider = styled.div`
   position: relative;
   top: -100px;
+  z-index: 1;
 `;
 
 export const SliderBtn = styled.button`
@@ -106,7 +107,7 @@ export const boxVariants = {
   },
   hover: {
     zIndex: 1,
-    width: 360,
+    scaleX: 1.2,
     height: 358,
     y: -100,
     transition: {
@@ -154,6 +155,7 @@ export const infoVariants = {
   hover: {
     display: "flex",
     opacity: 1,
+
     transition: {
       delay: 0.5,
     },
@@ -162,8 +164,36 @@ export const infoVariants = {
 
 export const MovieWrap = styled.div`
   width: 100%;
-  height: 300px;
+  height: auto;
   background-color: ${(props) => props.theme.black.veryDark};
   padding: 60px;
   box-sizing: border-box;
+  padding-top: 180px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 105px;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
 `;
+
+export const Movie = styled(motion.div)`
+  background-color: ${(props) => props.theme.black.lighter};
+  height: 180px;
+  position: relative;
+  width: 16%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+`;
+
+export const MovieImg = styled(motion.img)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const movieVairants = {};

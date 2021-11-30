@@ -14,6 +14,7 @@ export const Nav = styled(motion.div)`
   top: 0px;
   font-size: 14px;
   box-sizing: border-box;
+  z-index: 2;
 `;
 
 export const navVariants = {
