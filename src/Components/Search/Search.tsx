@@ -11,6 +11,8 @@ const Search: React.FC = () => {
     () => getSearch(keyword)
   );
 
+  console.log(data);
+
   return <div></div>;
 };
 export default Search;

@@ -36,7 +36,7 @@ export const getSearch = async (query: string | null) => {
   const url = `${BASE_PATH}/search/multi?api_key=${API_KEY}&language=ko&query=${query}&page=1&include_adult=false`;
   try {
     const res = await axios.get(url);
-    return res;
+    return res.data;
   } catch (error) {
     const res = error;
     return res;
