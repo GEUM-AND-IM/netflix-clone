@@ -1,5 +1,4 @@
 import { useAnimation } from "framer-motion";
-import { useHistory } from "react-router";
 import { useRecoilState } from "recoil";
 import { searchClick } from "../../../Store/searchClick";
 
