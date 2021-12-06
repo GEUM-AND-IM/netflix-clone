@@ -29,9 +29,7 @@ const BigMovieModal: React.FC<IBigMovieModalProps> = ({ movieId }) => {
 
   return (
     <>
-      {isLoading ? (
-        "Loading..."
-      ) : (
+      {isLoading ? null : (
         <>
           <OverLay
             onClick={onOverlayClick}

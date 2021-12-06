@@ -25,6 +25,7 @@ export interface ISearch {
   vote_average: number;
   vote_count: number;
   known_for?: IKnownFor[];
+  original_name: string;
 }
 
 export interface IGetSearchResult {
