@@ -2,7 +2,6 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router";
 import { getSearch, IGetSearchResult } from "../../API/getSearch";
-import useMovie from "../../Hooks/Home/Movie/useMovie";
 import { makeImgPath } from "../../util/makeImgPath";
 import {
   SearchLoader,
@@ -21,9 +20,6 @@ const Search: React.FC = () => {
     [`movie${keyword}`, "search"],
     () => getSearch(keyword)
   );
-  const { onBoxClicked } = useMovie();
-
-  console.log(data);
 
   return (
     <SearchWrapper>
@@ -34,7 +30,7 @@ const Search: React.FC = () => {
           {data && (
             <>
               <SearchNotice>{`${keyword}에 대한 ${data.results?.length}개의 검색결과`}</SearchNotice>
-              {data?.results.map((result) => {
+              {data?.results?.map((result) => {
                 return (
                   <SearchBox>
                     <span>
@@ -49,7 +45,7 @@ const Search: React.FC = () => {
                     </span>
                     <span>
                       <SearchInfo>
-                        {result.overview.slice(0, 300)}...
+                        {result.overview?.slice(0, 300)}...
                       </SearchInfo>
                       <SearchImg
                         src={makeImgPath(result.backdrop_path, "w300")}

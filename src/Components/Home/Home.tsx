@@ -37,16 +37,21 @@ const Home: React.FC = () => {
   const { onBoxClicked } = useMovie();
   const { isLoading } = useGetMovies();
 
+  console.log(movies);
+
   const incraseIndex = () => {
     if (movies) {
       if (leaving) return;
       toggleLeaving();
-      const totalMovies = movies?.length / 5 - 1;
+      const totalMovies = movies?.length / 3 - 1;
       const maxIndex = Math.floor(totalMovies / offset) - 1;
+      console.log(totalMovies, maxIndex);
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
+
+  console.log(movies);
 
   return (
     <Wrapper>
@@ -120,7 +125,7 @@ const Home: React.FC = () => {
                 >
                   <MovieImg
                     variants={boxImgVariants}
-                    src={makeImgPath(movie.backdrop_path, "w500")}
+                    src={makeImgPath(movie.backdrop_path, "w300")}
                   />
                   <Info variants={infoVariants}>
                     <h4>{movie.title}</h4>

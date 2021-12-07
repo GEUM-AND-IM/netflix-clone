@@ -18,7 +18,7 @@ const useGetMovies = () => {
   useEffect(() => {
     resetMovie();
     setIsLoading(true);
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 3; i++) {
       loadMovie(i);
     }
     setIsLoading(false);

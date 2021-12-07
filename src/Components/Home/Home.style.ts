@@ -165,6 +165,7 @@ export const infoVariants = {
 export const MovieWrap = styled.div`
   width: 100%;
   height: auto;
+  min-height: 100vh;
   background-color: ${(props) => props.theme.black.veryDark};
   padding: 60px;
   box-sizing: border-box;

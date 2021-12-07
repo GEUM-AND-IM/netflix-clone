@@ -78,7 +78,9 @@ const BigMovieModal: React.FC<IBigMovieModalProps> = ({ movieId }) => {
                     </p>
                     <p>
                       <span>예산:</span>
-                      {data?.budget ? data.budget + "원" : "미추정"}
+                      {data?.budget
+                        ? data.budget.toLocaleString() + " $"
+                        : "미추정"}
                     </p>
                   </MovieRightInfo>
                 </MovieInfoWrap>
