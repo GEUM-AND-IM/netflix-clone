@@ -37,8 +37,6 @@ const Home: React.FC = () => {
   const { onBoxClicked } = useMovie();
   const { isLoading } = useGetMovies();
 
-  console.log(movies);
-
   const incraseIndex = () => {
     if (movies) {
       if (leaving) return;
@@ -50,8 +48,6 @@ const Home: React.FC = () => {
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
-
-  console.log(movies);
 
   return (
     <Wrapper>

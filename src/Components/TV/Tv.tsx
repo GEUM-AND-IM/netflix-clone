@@ -1,6 +1,9 @@
+import { AnimatePresence } from "framer-motion";
 import React from "react";
+import { useRouteMatch } from "react-router";
 import { useRecoilState } from "recoil";
 import useGetTvPros from "../../Hooks/Tv/useGetTvPros";
+import useTvDetail from "../../Hooks/Tv/useTvDetail";
 import { tvProsData } from "../../Store/tvProsData";
 import { makeImgPath } from "../../util/makeImgPath";
 import {
@@ -14,10 +17,13 @@ import {
   MovieWrap,
   Wrapper,
 } from "../Home/Home.style";
+import BigTvProModal from "./BigTvProModal";
 
 const Tv: React.FC = () => {
-  const { isLoading } = useGetTvPros();
   const [tvpros, setTvPros] = useRecoilState(tvProsData);
+  const { isLoading } = useGetTvPros();
+  const { onTvProModalClicked } = useTvDetail();
+  const bigTvProMatch = useRouteMatch<{ tvproId: string }>("/tvpros/:tvproId");
 
   return (
     <Wrapper>
@@ -33,6 +39,7 @@ const Tv: React.FC = () => {
                   whileHover="hover"
                   variants={boxVariants}
                   layoutId={tvpros.id + ""}
+                  onClick={() => onTvProModalClicked(tvpros.id)}
                 >
                   <MovieImg
                     variants={boxImgVariants}
@@ -51,6 +58,11 @@ const Tv: React.FC = () => {
                 </Movie>
               );
             })}
+            <AnimatePresence>
+              {bigTvProMatch && (
+                <BigTvProModal tvproId={bigTvProMatch.params.tvproId + ""} />
+              )}
+            </AnimatePresence>
           </MovieWrap>
         </>
       )}

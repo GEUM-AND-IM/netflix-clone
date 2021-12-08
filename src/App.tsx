@@ -8,7 +8,7 @@ const App: React.FC = () => {
     <Router>
       <Header />
       <Switch>
-        <Route path="/tv" component={Page.TvPage} />
+        <Route path={["/tv", "/tvpros/:tvproId"]} component={Page.TvPage} />
         <Route path="/search" component={Page.SearchPage} />
         <Route path={["/", "/movies/:movieId"]} component={Page.HomePage} />
       </Switch>
