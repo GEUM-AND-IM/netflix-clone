@@ -25,3 +25,70 @@ export const BigTvpro = styled(motion.div)`
   display: flex;
   flex-direction: column;
 `;
+
+export const BigTvCover = styled.div<{ bgPhoto: string }>`
+  width: 100%;
+  min-height: 400px;
+  background-image: linear-gradient(to top, #181818, transparent 50%),
+    url(${(props) => props.bgPhoto});
+  background-size: cover;
+  background-position: center;
+  position: relative;
+`;
+
+export const BigTvTitle = styled.h3`
+  color: ${(props) => props.theme.white.lighter};
+  font-size: 46px;
+  position: absolute;
+  padding: 20px;
+  padding-left: 48px;
+  bottom: 0px;
+`;
+
+export const BigTvInfoWrap = styled.div`
+  width: 100%;
+  display: flex;
+  padding: 48px;
+  padding-top: 20px;
+  box-sizing: border-box;
+  height: 100%;
+`;
+
+export const BigTvLeftInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+`;
+
+export const BigTvLeftTopWrap = styled.div`
+  width: 100%;
+  height: 32px;
+  display: flex;
+  column-gap: 20px;
+
+  h3 {
+    color: #46d369;
+  }
+`;
+
+export const BigTvOverView = styled.p`
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  margin-top: 18px;
+  line-height: 20px;
+`;
+
+export const BigTvHd = styled.div`
+  width: 16px;
+  height: 15px;
+  text-align: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0 0.5em;
+  font-size: 0.7em;
+  border-radius: 3px;
+  white-space: nowrap;
+`;
