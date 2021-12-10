@@ -92,3 +92,25 @@ export const BigTvHd = styled.div`
   border-radius: 3px;
   white-space: nowrap;
 `;
+
+export const BigTvRightInfo = styled.div`
+  width: 265px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 14px;
+  margin-left: 40px;
+
+  p {
+    span {
+      min-width: 32px;
+      margin-right: 3px;
+      color: #777;
+    }
+
+    p {
+      color: white;
+      margin-right: auto;
+    }
+  }
+`;
