@@ -19,6 +19,8 @@ interface ITvLastEpisode {
   overview: string;
   vote_average: number;
   vote_count: number;
+  still_path: string;
+  season_number: number;
 }
 
 export interface ITvProDeatil {
@@ -33,6 +35,8 @@ export interface ITvProDeatil {
   last_episode_to_air: ITvLastEpisode;
   overview: string;
   popularity: number;
+  vote_average: number;
+  vote_count: number;
 }
 
 export const getTvProDetail = async (id: string) => {

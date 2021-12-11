@@ -62,7 +62,7 @@ const BigMovieModal: React.FC<IBigMovieModalProps> = ({ movieId }) => {
                         .map((genre) => {
                           return genre.name;
                         })
-                        .join(",")}
+                        .join(", ")}
                     </p>
                     <p>
                       <span>평점:</span>
