@@ -88,7 +88,7 @@ const Home: React.FC = () => {
                       />
                       <Info variants={infoVariants}>
                         <h4>{movie.title}</h4>
-                        <span>평점 : ⭐{movie.vote_average}</span>
+                        <span>평점 : {movie.vote_average}⭐</span>
                         <span>평점 횟수 : {movie.vote_count}회</span>
                       </Info>
                     </Box>
@@ -125,7 +125,7 @@ const Home: React.FC = () => {
                   />
                   <Info variants={infoVariants}>
                     <h4>{movie.title}</h4>
-                    <span>평점 : ⭐{movie.vote_average}</span>
+                    <span>평점 : {movie.vote_average}⭐</span>
                     <span>평점 횟수 : {movie.vote_count}회</span>
                   </Info>
                 </Movie>
