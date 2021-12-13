@@ -52,7 +52,7 @@ const Tv: React.FC = () => {
                   />
                   <Info variants={infoVariants}>
                     <h4>{tvpros.name}</h4>
-                    <span>평점 : ⭐{tvpros.vote_average}</span>
+                    <span>평점 : {tvpros.vote_average}⭐</span>
                     <span>평점 횟수 : {tvpros.vote_count}회</span>
                   </Info>
                 </Movie>
